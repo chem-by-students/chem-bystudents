@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Chem By Students</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #f5f5f5; }
+        .admin-login-container {
+            max-width: 400px;
+            margin: 80px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+            padding: 2.5rem 2rem;
+        }
+        .admin-login-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #000;
+        }
+        .admin-login-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .admin-login-form input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .admin-login-form button {
+            width: 100%;
+        }
+        .admin-login-error {
+            color: #dc2626;
+            font-size: 0.98rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #000;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        .back-link:hover { color: #333; }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-title">Admin Login</div>
+        <form id="adminLoginForm" class="admin-login-form">
+            <div class="form-group">
+                <input type="text" id="adminLoginUsername" placeholder="Admin Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="adminLoginPassword" placeholder="Admin Password" required>
+            </div>
+            <div id="adminLoginError" class="admin-login-error" style="display:none;"></div>
+            <button type="submit" class="btn btn-primary">Login as Admin</button>
+        </form>
+        <a href="index.html" class="back-link">&larr; Back to Signup</a>
+    </div>
+    <script>
+        const adminCredentials = {
+            'Lohith': 'adminclub101',
+            'Nitin': 'adminclub101',
+            'Dhanunjay': 'adminclub101',
+            'Praveen': 'adminclub101',
+            'admin': 'adminclub101',
+            'club': 'adminclub101'
+        };
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('adminLoginUsername').value.trim();
+            const password = document.getElementById('adminLoginPassword').value;
+            const adminKey = Object.keys(adminCredentials).find(key => key.toLowerCase() === username.toLowerCase());
+            if (adminKey && adminCredentials[adminKey] === password) {
+                // Set currentUser as admin in localStorage
+                const adminUser = {
+                    username: adminKey,
+                    name: adminKey,
+                    email: '',
+                    isAdmin: true,
+                    avatar: 'https://via.placeholder.com/40'
+                };
+                localStorage.setItem('currentUser', JSON.stringify(adminUser));
+                // Optionally, set adminVerified flag if you want to show the message
+                localStorage.setItem('adminVerified', 'true');
+                // Redirect to main page (admin features will be available)
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('adminLoginError').textContent = 'Invalid admin username or password.';
+                document.getElementById('adminLoginError').style.display = 'block';
+            }
+        });
+        </script>
+</body>
+</html> 
